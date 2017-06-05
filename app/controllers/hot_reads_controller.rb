@@ -1,4 +1,4 @@
-class Api::V1::HotReadsController < ApplicationController
+class HotReadsController < ApplicationController
   def index
     @urls = Url.top_links
   end
