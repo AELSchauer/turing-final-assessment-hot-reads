@@ -6,19 +6,13 @@ class Url < ApplicationRecord
 
 
   def hot?
-    top_ten = Url.top_ten.keys
-    if top_ten[0] == id
-      'top'
-    elsif top_ten.include?(id)
-      'hot'
-    else
-      ''
-    end
+    return '' unless Url.top_links.include?(self)
+    Url.top_links[0] == self ? 'top' : 'hot'
   end
 
-  def self.top_ten
+  def self.top_links
     yesterday = (Time.new.utc - (60 * 60 * 24)).strftime('%Y-%m-%d %H:%M:%S')
-    query = "SELECT urls.id, count(reads.id) FROM urls
+    query = "SELECT urls.id FROM urls
       INNER JOIN reads ON urls.id = reads.url_id
       WHERE reads.created_at >= '#{yesterday}'
       GROUP BY urls.id
@@ -27,6 +21,7 @@ class Url < ApplicationRecord
       ;"
 
     results = ActiveRecord::Base.connection.execute(query)
-    results.reduce({}) { |h, r| h.merge!({r['id'] => r['count']}) }
+    ids = results.pluck('id')
+    ids.map { |id| Url.find(id) }
   end
 end

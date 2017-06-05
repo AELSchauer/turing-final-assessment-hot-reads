@@ -4,7 +4,7 @@ RSpec.describe Url, type: :model do
   it { should validate_presence_of(:address) }
   it { should have_many(:reads) }
 
-  it '#self.hot_reads' do
+  it '#self.top_links' do
     urls = create_list(:url, 20)
 
     urls.each_with_index do |url, i|
@@ -14,13 +14,11 @@ RSpec.describe Url, type: :model do
       end
     end
 
-    ten = Url.top_ten
+    ten = Url.top_links
 
     expect(ten.count).to eq(10)
-    expect(ten.keys[0]).to eq(20)
-    expect(ten.keys[9]).to eq(11)
-    expect(ten[20]).to eq(19)
-    expect(ten[11]).to eq(10)
+    expect(ten.first.id).to eq(20)
+    expect(ten.last.id).to eq(11)
   end
 
   it '#hot?' do
