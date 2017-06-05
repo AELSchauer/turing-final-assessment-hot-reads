@@ -53,5 +53,26 @@ describe "HotReads API" do
       expect(body[:rank]).to eq("top")
     end
   end
-end
 
+  context 'errors --' do
+    it 'returns an error if no query' do
+      get "/api/v1/hot_reads"
+
+      body = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(400)
+      expect(body[:error]).to eq("Url address not specified")
+    end
+
+    it 'returns an error if url is not in the database' do
+      url = build(:url)
+
+      get "/api/v1/hot_reads?address=#{url.address}"
+
+      body = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response.status).to eq(400)
+      expect(body[:error]).to eq("Url not found")
+    end
+  end
+end
