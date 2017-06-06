@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  root 'hot_reads#index'
+
   resources :hot_reads, only: :index
 
   namespace :api do
