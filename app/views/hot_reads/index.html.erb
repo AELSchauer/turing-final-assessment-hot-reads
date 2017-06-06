@@ -1,6 +1,6 @@
 <h1>Hot Links</h1>
 <ul>
   <% @urls.each do |url| %>
-    <li><%= link_to url.address, url.address %></li>
+    <li><%= link_to url.address, url.address %> -- <%= url.reads.count %></li>
   <% end %>
 </ul>
