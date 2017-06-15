@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-describe "HotReads API" do
+describe 'HotReads API' do
   context 'no errors -- ' do
     it 'returns blank if the link is not hot' do
       urls = create_list(:url, 20)
@@ -16,7 +16,7 @@ describe "HotReads API" do
       body = JSON.parse(response.body, symbolize_names: true)
 
       expect(response.status).to eq(201)
-      expect(body[:rank]).to eq("")
+      expect(body[:rank]).to eq('')
     end
 
     it 'returns if the link is hot' do
@@ -33,7 +33,7 @@ describe "HotReads API" do
       body = JSON.parse(response.body, symbolize_names: true)
 
       expect(response.status).to eq(201)
-      expect(body[:rank]).to eq("hot")
+      expect(body[:rank]).to eq('hot')
     end
 
     it 'returns if the link is top' do
@@ -50,18 +50,18 @@ describe "HotReads API" do
       body = JSON.parse(response.body, symbolize_names: true)
 
       expect(response.status).to eq(201)
-      expect(body[:rank]).to eq("top")
+      expect(body[:rank]).to eq('top')
     end
   end
 
   context 'errors --' do
     it 'returns an error if no query' do
-      get "/api/v1/hot_reads"
+      get '/api/v1/hot_reads'
 
       body = JSON.parse(response.body, symbolize_names: true)
 
       expect(response.status).to eq(400)
-      expect(body[:error]).to eq("Url address not specified")
+      expect(body[:error]).to eq('Url address not specified')
     end
 
     it 'returns an error if url is not in the database' do
@@ -72,7 +72,7 @@ describe "HotReads API" do
       body = JSON.parse(response.body, symbolize_names: true)
 
       expect(response.status).to eq(400)
-      expect(body[:error]).to eq("Url not found")
+      expect(body[:error]).to eq('Url not found')
     end
   end
 end

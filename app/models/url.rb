@@ -4,7 +4,6 @@ class Url < ApplicationRecord
   validates :address, presence: true
   validates :address, uniqueness: true
 
-
   def hot?
     return '' unless Url.top_links.include?(self)
     Url.top_links[0] == self ? 'top' : 'hot'

@@ -35,8 +35,8 @@ RSpec.describe Url, type: :model do
     url_2 = urls[10]
     url_3 = urls[19]
 
-    expect(url_1.hot?).to eq("")
-    expect(url_2.hot?).to eq("hot")
-    expect(url_3.hot?).to eq("top")
+    expect(url_1.hot?).to eq('')
+    expect(url_2.hot?).to eq('hot')
+    expect(url_3.hot?).to eq('top')
   end
 end
